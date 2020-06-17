@@ -2,12 +2,12 @@ import { OnDestroy } from '@angular/core';
 
 export class Utility {
    static checkLoadStatus(array: Array<object>) {
-     let loadDoneStatuses = array.filter(item => item["processingStatus"] === "loadDone");
+     let loadDoneStatuses = array.filter(item => ["loadDone", "putDone", "postDone", "deleteDone"].includes(item["processingStatus"]));
      return (array.length === loadDoneStatuses.length) ? true : false;
    }
    static checkApiStatus(array: Array<object>) {
-     let apiStatuses = array.filter(item => item["apiResponse"]["status"] !== "200" && item["apiResponse"]["status"] !== "201")
-     return (apiStatuses.length === 0) ? true : false;
+     let apiStatuses = array.filter(item => ["200", "201"].includes(item["apiResponse"]["status"]))
+     return (array.length === apiStatuses.length) ? true : false;
    }
 
    static createState(status, data) {
